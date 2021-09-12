@@ -1,4 +1,6 @@
+import { memo } from 'react';
 import '../index.css';
+
 
 interface ProductItemProps {
   product: {
@@ -8,10 +10,14 @@ interface ProductItemProps {
   }
 }
 
-export function ProductItem ({ product }: ProductItemProps) {
+function ProductItemComponent ({ product }: ProductItemProps) {
   return (
     <div>
       {product.title} - <span style={{fontWeight: 900}}>{product.price}</span>
     </div>
   );
 }
+
+export const ProductItem = memo(ProductItemComponent, (prevProps, nextProps) => {
+  return Object.is(prevProps.product, nextProps.product)
+})
